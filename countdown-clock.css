@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+.section-center {
+  padding: 200px;
+  display: flex;
+}
+.gift-img {
+  padding: 20px;
+}
+.gift-info {
+  padding: 20px;
+  margin-left: 100px;
+}
+
+.deadline-format {
+  display: flex;
+}
+.deadline-format .demo {
+  width: 100px;
+  padding: 5px;
+  margin: 5px;
+  background-color: #333;
+  color: white;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count down clock</title>
+    <link rel="stylesheet" href="./countdown-clock.css" />
+  </head>
+  <body>
+    <section class="section-center">
+      <!-- image -->
+      <article class="gift-img">
+        <img src="./image/clock.jpg" alt="image not found" />
+      </article>
+      <!-- info comment -->
+      <article class="gift-info">
+        <h3>Old Clock giveaway</h3>
+        <h4 class="give-away">giveaway ends on Sunday,24 April 2020, 8:00am</h4>
+        <p>
+          The easiest, fastest, and most convenient way to set an alarm on any computer is to use a free online alarm clock. All you need to use this alarm clock is an internet connection. You don't
+          need to download an app.
+        </p>
+        <div class="deadline">
+          <!-- day -->
+          <div class="deadline-format">
+            <div class="demo">
+              <h4 class="days">34</h4>
+              <span>DAYS</span>
+            </div>
+            <div class="demo">
+              <h4 class="hours">34</h4>
+              <span>Hours</span>
+            </div>
+            <div class="demo">
+              <h4 class="minutes">34</h4>
+              <span>MINUTES</span>
+            </div>
+            <div class="demo">
+              <h4 class="seconds">34</h4>
+              <span>SECONDS</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+    <!-- JavaScript -->
+    <script>
+      const months = ["Janaury", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const giveaway = document.querySelector(".give-away");
+      const deadline = document.querySelector(".deadline");
+      const items = document.querySelectorAll(".deadline-format h4");
+      //console.log(items);//A nodeList object containing list of nodes
+
+      // creates a date object with a specified date and time.
+      //giveway date object
+      let futureDate = new Date(2023, 10, 20, 11, 30, 0);
+      //console.log(futureDate);
+
+      //now extracting date from date object.
+      const year = futureDate.getFullYear();
+      const hours = futureDate.getHours();
+      const minutes = futureDate.getMinutes();
+
+      //problem -> it returns number but we want string so we can take help of array of months
+      const month = futureDate.getMonth(); //0-11
+      //console.log(months[month]); //4
+      const date = futureDate.getDate(); //0-6
+      const weekday = weekdays[futureDate.getDay()];
+      giveaway.textContent = `Giveaway ends on ${weekday} ${date} ${months[month]} ${year} ${hours}:${minutes} am`;
+      //countdown timer
+      const futureTime = futureDate.getTime();
+      function getRemainingTime() {
+        const today = new Date().getTime(); //milliseconds
+        console.log(today); //1700335652157
+        const t = futureTime - today;
+        console.log(t);
+        //1s = 1000 ms
+        //1m = 60s
+        //1hr = 60min
+        //1day = 24hrs
+
+        //how may milliseconds in 1 day
+        const oneDay = 24 * 60 * 60 * 1000;
+        //milliseconds in 1 hr
+        const oneHour = 60 * 60 * 1000;
+        const oneMinute = 60 * 1000;
+
+        //
+        let days = t / oneDay;
+        days = Math.floor(days);
+        let hours = Math.floor((t % oneDay) / oneHour);
+        let minutes = Math.floor((t % oneHour) / oneMinute);
+        let seconds = Math.floor((t % oneMinute) / 1000);
+
+        //setting values in each h4
+        const values = [days, hours, minutes, seconds];
+        function format(item) {
+          if (item < 10) {
+            return `0${item}`;
+          }
+          return item;
+        }
+        items.forEach(function (item, index) {
+          item.innerHTML = format(values[index]);
+        });
+      }
+      //countdown
+      //everysecond call function
+      let countdown = setInterval(getRemainingTime, 1000);
+      //getRemainingTime();
+    </script>
+  </body>
+</html>
